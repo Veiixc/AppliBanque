@@ -12,3 +12,4 @@ C:\Users\bring\OneDrive\Documents\école\alternance\appli banque\FirstApp\obj\De
 C:\Users\bring\OneDrive\Documents\école\alternance\appli banque\FirstApp\obj\Debug\net8.0\FirstApp.pdb
 C:\Users\bring\OneDrive\Documents\école\alternance\appli banque\FirstApp\obj\Debug\net8.0\FirstApp.genruntimeconfig.cache
 C:\Users\bring\OneDrive\Documents\école\alternance\appli banque\FirstApp\obj\Debug\net8.0\ref\FirstApp.dll
+C:\Users\bring\OneDrive\Documents\école\alternance\appli banque\FirstApp\obj\Debug\net8.0\FirstApp.sourcelink.json
