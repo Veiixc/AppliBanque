@@ -47,6 +47,10 @@ class Firstapp
         //         demarage = Console.ReadLine();
         //     } while (!string.IsNullOrEmpty(demarage));
         Entree();
+        Compte KevinCompte = new Compte(561);
+        Client Kevin = new Client("Kevin");
+        Kevin.AjouterCompte(KevinCompte);
+        KevinCompte.AjouterMontant(50);
         int solde = 0;
         int solde1 = 0;
         bool fin = false;
