@@ -1,12 +1,12 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 class Firstapp
 {
     static void AfficherMenu()
     {
         Console.Clear();
-        Console.WriteLine("Veuillez sélectionner une option ci - dessous :");
+        Console.WriteLine("Veuillez sélectionner une option ci-dessous :");
         Console.WriteLine("[I] Voir les informations sur le titulaire du compte");
         Console.WriteLine("[CS] Compte courant - Consulter le solde");
         Console.WriteLine("[CD] Compte courant - Déposer des fonds");
@@ -15,18 +15,20 @@ class Firstapp
         Console.WriteLine("[ED] Compte épargne - Déposer des fonds");
         Console.WriteLine("[ER] Compte épargne - Retirer des fonds");
         Console.WriteLine("[X] Quitter");
-        Console.WriteLine("Votre choix");
+        Console.Write("Votre choix : ");
     }
+
     static void Entree()
     {
         ConsoleKeyInfo bouton;
         do
         {
-            Console.WriteLine("Entrée pour démarer");
+            Console.WriteLine("Entrée pour démarrer");
             bouton = Console.ReadKey();
             Console.WriteLine();
         } while (bouton.Key != ConsoleKey.Enter);
     }
+
     static void Entree2()
     {
         ConsoleKeyInfo bouton;
@@ -38,21 +40,24 @@ class Firstapp
         } while (bouton.Key != ConsoleKey.Enter);
     }
 
+    static int DemanderMontant(string message)
+    {
+        Console.Write(message + " ");
+        return int.Parse(Console.ReadLine());
+    }
+
     static void Main(string[] args)
     {
-        //     string demarage;
-        //     do
-        //     {
-        //         Console.WriteLine("Entrée pour démarer");
-        //         demarage = Console.ReadLine();
-        //     } while (!string.IsNullOrEmpty(demarage));
         Entree();
-        Compte KevinCompte = new Compte(561);
         Client Kevin = new Client("Kevin");
-        Kevin.AjouterCompte(KevinCompte);
-        KevinCompte.AjouterMontant(50);
-        int solde = 0;
-        int solde1 = 0;
+        var compteCourant = new CompteCourant(1);
+        compteCourant.AjouterMontant(500);
+        var compteEpargne = new CompteEpargne(2);
+        compteEpargne.AjouterMontant(1028);
+
+        Kevin.AjouterCompte(compteCourant);
+        Kevin.AjouterCompte(compteEpargne);
+
         bool fin = false;
         while (!fin)
         {
@@ -61,51 +66,59 @@ class Firstapp
             switch (lettre)
             {
                 case "I":
+                    Console.WriteLine($"Titulaire : {Kevin.Nom}");
+                     Console.WriteLine($"Compte courant  : #{compteCourant.id} - Solde : {compteCourant.Montant} €");
+                    Console.WriteLine($"Compte épargne  : #{compteEpargne.id} - Solde : {compteEpargne.Montant} €");
+                    Entree2();
                     break;
+
                 case "CS":
-                    Console.WriteLine("votre solde : ?");
-                    Console.WriteLine(solde);
+                    Console.WriteLine($"Votre solde : {compteCourant.Montant} €");
                     Entree2();
                     break;
+
                 case "CD":
-                    Console.WriteLine("Quel montant souhaitez-vous déposer ?");
-                    string saisie = Console.ReadLine();
-                    int dépôt = int.Parse(saisie);
-                    solde += dépôt;
-                    break;
-                case "CR":
-                    Console.WriteLine("Quel montant souhaitez-vous retirer ?");
-                    string saisie1 = Console.ReadLine();
-                    int retrait = int.Parse(saisie1);
-                    solde -= retrait;
-                    break;
-                case "ES":
-                    Console.WriteLine("votre solde :");
-                    Console.WriteLine(solde1);
+                    var depotC = DemanderMontant("Quel montant souhaitez-vous déposer ?");
+                    compteCourant.AjouterMontant(depotC);
+                    Console.WriteLine($"Vous avez déposé : {depotC} €.");
                     Entree2();
                     break;
+
+                case "CR":
+                    var retraitC = DemanderMontant("Quel montant souhaitez-vous retirer ?");
+                    compteCourant.RetirerMontant(retraitC);
+                    Console.WriteLine($"Vous avez retiré : {retraitC} €.");
+                    Entree2();
+                    break;
+
+                case "ES":
+                    Console.WriteLine($"Votre solde épargne : {compteEpargne.Montant} €");
+                    Entree2();
+                    break;
+
                 case "ED":
-                    Console.WriteLine("Quel montant souhaitez-vous déposer ?");
-                    string saisie2 = Console.ReadLine();
-                    int dépôt1 = int.Parse(saisie2);
-                    solde1 += dépôt1;
+                    var depotE = DemanderMontant("Quel montant souhaitez-vous déposer ?");
+                    compteEpargne.AjouterMontant(depotE);
+                    Console.WriteLine($"Vous avez déposé : {depotE} €.");
+                    Entree2();
                     break;
+
                 case "ER":
-                    Console.WriteLine("Quel montant souhaitez-vous retirer ?");
-                    string saisie3 = Console.ReadLine();
-                    int retrait1 = int.Parse(saisie3);
-                    solde1 -= retrait1;
+                    var retraitE = DemanderMontant("Quel montant souhaitez-vous retirer ?");
+                    compteEpargne.RetirerMontant(retraitE);
+                    Console.WriteLine($"Vous avez retiré : {retraitE} €.");
+                    Entree2();
                     break;
+
                 case "X":
                     fin = true;
                     break;
+
                 default:
-                    AfficherMenu();
+                    Console.WriteLine("Option invalide.");
+                    Entree2();
                     break;
-
             }
-
         }
-
     }
 }

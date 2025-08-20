@@ -1,21 +1,26 @@
 class Compte
 {
-    private int id;
-    private double montant;
+    public int id;
+    public int Montant { get; protected set; }
 
     public Compte(int id)
     {
         this.id = id;
-        this.montant = 0;
-
-    }
-    public void AjouterMontant(int montant)
-    {
-        this.montant += montant;
-    }
-    public void RetirerMontant(int montant)
-    {
-        this.montant -= montant;
+        this.Montant = 0;
     }
 
+    public string AjouterMontant(int montant)
+    {
+        if (montant <= 0) return "Montant invalide.";
+        this.Montant += montant;
+        return "Montant ajouté.";
+    }
+
+    public string RetirerMontant(int montant)
+    {
+        if (montant <= 0) return "Montant invalide.";
+        if (montant > this.Montant) return "Fonds insuffisants.";
+        this.Montant -= montant;
+        return "Montant retiré.";
+    }
 }

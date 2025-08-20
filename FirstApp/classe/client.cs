@@ -1,16 +1,15 @@
 class Client
 {
-    private string Nom;
-    private Compte compte;
+    public string Nom;
+    private List<Compte> comptes = new List<Compte>();
 
-    public Client(string Nom)
+    public Client(string nom)
     {
-        this.Nom = Nom;
-
+        this.Nom = nom;
     }
+
     public void AjouterCompte(Compte compte)
     {
-        this.compte = compte;
+        comptes.Add(compte);
     }
 }
-
